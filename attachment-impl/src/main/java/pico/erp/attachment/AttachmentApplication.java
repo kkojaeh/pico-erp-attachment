@@ -17,7 +17,7 @@ import pico.erp.shared.impl.ApplicationImpl;
 
 @Slf4j
 @SpringBootConfigs
-public class Application implements ApplicationStarter {
+public class AttachmentApplication implements ApplicationStarter {
 
   public static final String CONFIG_NAME = "attachment/application";
 
@@ -30,7 +30,7 @@ public class Application implements ApplicationStarter {
   }
 
   public static SpringApplication application() {
-    return new SpringApplicationBuilder(Application.class)
+    return new SpringApplicationBuilder(AttachmentApplication.class)
       .properties(DEFAULT_PROPERTIES)
       .web(false)
       .build();
