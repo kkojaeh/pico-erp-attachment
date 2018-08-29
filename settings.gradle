@@ -1,0 +1,4 @@
+rootProject.name = 'pico-erp-attachment'
+include 'attachment-api'
+include 'attachment-impl'
+
