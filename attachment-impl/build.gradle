@@ -9,7 +9,7 @@ dependencies {
 
   compile project(':attachment-api')
 
-  compile('com.github.kkojaeh.pico-erp-shared:shared-impl:1.0.0')
+  compile("com.github.kkojaeh.pico-erp-shared:shared-impl:${sharedVersion}")
 
   compile('commons-io:commons-io')
 
