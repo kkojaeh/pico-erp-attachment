@@ -16,6 +16,4 @@ dependencies {
 
   compile('net.coobird:thumbnailator:0.4.8')
 
-  testRuntimeOnly project(':attachment-test-cfg')
-
 }

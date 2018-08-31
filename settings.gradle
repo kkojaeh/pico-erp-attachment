@@ -1,5 +1,5 @@
 rootProject.name = 'pico-erp-attachment'
 include 'attachment-api'
 include 'attachment-impl'
-include 'attachment-test-cfg'
+include 'attachment-test'
 
