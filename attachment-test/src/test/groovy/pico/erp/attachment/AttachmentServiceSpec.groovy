@@ -9,10 +9,14 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
-import pico.erp.attachment.data.AttachmentCategory
-import pico.erp.attachment.data.AttachmentCategoryId
+import pico.erp.attachment.access.log.AttachmentAccessLogQuery
+import pico.erp.attachment.category.data.AttachmentCategory
+import pico.erp.attachment.category.data.AttachmentCategoryId
 import pico.erp.attachment.data.AttachmentData
 import pico.erp.attachment.impl.FileSystemAttachmentStorageStrategy
+import pico.erp.attachment.item.AttachmentItemRequests
+import pico.erp.attachment.item.AttachmentItemService
+import pico.erp.attachment.storage.AttachmentStorageStrategy
 import pico.erp.shared.IntegrationConfiguration
 import pico.erp.shared.Public
 import spock.lang.Specification

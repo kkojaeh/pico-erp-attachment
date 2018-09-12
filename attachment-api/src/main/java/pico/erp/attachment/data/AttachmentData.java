@@ -2,6 +2,7 @@ package pico.erp.attachment.data;
 
 import java.time.OffsetDateTime;
 import lombok.Data;
+import pico.erp.attachment.category.data.AttachmentCategoryId;
 import pico.erp.shared.data.Auditor;
 
 @Data

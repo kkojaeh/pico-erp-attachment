@@ -8,9 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pico.erp.attachment.data.AttachmentCategoryId;
+import pico.erp.attachment.category.data.AttachmentCategoryId;
 import pico.erp.attachment.data.AttachmentId;
-import pico.erp.attachment.data.AttachmentItemId;
+import pico.erp.attachment.item.data.AttachmentItemId;
 
 public interface AttachmentRequests {
 

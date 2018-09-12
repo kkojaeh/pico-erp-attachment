@@ -10,9 +10,9 @@ import lombok.Setter;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
-import pico.erp.attachment.AttachmentStorageStrategy;
-import pico.erp.attachment.data.AttachmentItemInfo;
-import pico.erp.attachment.data.AttachmentStorageKey;
+import pico.erp.attachment.item.data.AttachmentItemInfo;
+import pico.erp.attachment.storage.AttachmentStorageStrategy;
+import pico.erp.attachment.storage.data.AttachmentStorageKey;
 
 public class FileSystemAttachmentStorageStrategy implements AttachmentStorageStrategy {
 
