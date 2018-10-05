@@ -1,7 +1,8 @@
-package pico.erp.attachment.storage.data;
+package pico.erp.attachment.item;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.io.Serializable;
+import java.util.UUID;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,7 +21,7 @@ import pico.erp.shared.TypeDefinitions;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = "value")
 @ToString
-public class AttachmentStorageKey implements Serializable {
+public class AttachmentItemId implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -29,8 +30,12 @@ public class AttachmentStorageKey implements Serializable {
   @NotNull
   private String value;
 
-  public static AttachmentStorageKey from(@NonNull String value) {
-    return new AttachmentStorageKey(value);
+  public static AttachmentItemId from(@NonNull String value) {
+    return new AttachmentItemId(value);
+  }
+
+  public static AttachmentItemId generate() {
+    return from(UUID.randomUUID().toString());
   }
 
 }

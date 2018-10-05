@@ -5,8 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.Value;
-import pico.erp.attachment.data.AttachmentId;
-import pico.erp.attachment.item.data.AttachmentItemId;
+import pico.erp.attachment.item.AttachmentItemId;
 import pico.erp.shared.event.Event;
 
 public interface AttachmentEvents {

@@ -18,17 +18,14 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import pico.erp.attachment.AttachmentMapper;
-import pico.erp.attachment.data.AttachmentId;
-import pico.erp.attachment.data.AttachmentImageData;
+import pico.erp.attachment.AttachmentId;
+import pico.erp.attachment.AttachmentImageData;
 import pico.erp.attachment.item.AttachmentItemRequests.CreateRequest;
 import pico.erp.attachment.item.AttachmentItemRequests.DeleteRequest;
 import pico.erp.attachment.item.AttachmentItemRequests.DirectAccessRequest;
 import pico.erp.attachment.item.AttachmentItemRequests.GetThumbnailRequest;
 import pico.erp.attachment.item.AttachmentItemRequests.RecoverRequest;
 import pico.erp.attachment.item.AttachmentItemRequests.UriAccessRequest;
-import pico.erp.attachment.item.data.AttachmentItemData;
-import pico.erp.attachment.item.data.AttachmentItemId;
 import pico.erp.attachment.storage.AttachmentStorageStrategy;
 import pico.erp.shared.Public;
 import pico.erp.shared.event.EventPublisher;
@@ -45,7 +42,7 @@ public class AttachmentItemServiceLogic implements AttachmentItemService {
   private AttachmentItemRepository attachmentItemRepository;
 
   @Autowired
-  private AttachmentMapper mapper;
+  private AttachmentItemMapper mapper;
 
   @Autowired
   private EventPublisher eventPublisher;

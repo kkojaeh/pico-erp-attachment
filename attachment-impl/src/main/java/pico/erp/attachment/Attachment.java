@@ -15,8 +15,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.val;
 import pico.erp.attachment.AttachmentEvents.CopiedEvent;
 import pico.erp.attachment.AttachmentEvents.DeletedEvent;
-import pico.erp.attachment.category.data.AttachmentCategory;
-import pico.erp.attachment.data.AttachmentId;
+import pico.erp.attachment.category.AttachmentCategory;
 import pico.erp.shared.data.Auditor;
 
 @Builder

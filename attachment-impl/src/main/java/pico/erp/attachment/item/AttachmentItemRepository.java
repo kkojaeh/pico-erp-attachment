@@ -4,8 +4,7 @@ import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
-import pico.erp.attachment.data.AttachmentId;
-import pico.erp.attachment.item.data.AttachmentItemId;
+import pico.erp.attachment.AttachmentId;
 
 public interface AttachmentItemRepository {
 

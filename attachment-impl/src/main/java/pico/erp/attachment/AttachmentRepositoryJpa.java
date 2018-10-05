@@ -1,4 +1,4 @@
-package pico.erp.attachment.jpa;
+package pico.erp.attachment;
 
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -10,9 +10,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pico.erp.attachment.Attachment;
-import pico.erp.attachment.AttachmentRepository;
-import pico.erp.attachment.data.AttachmentId;
 
 @Repository
 interface AttachmentEntityRepository extends CrudRepository<AttachmentEntity, AttachmentId> {
@@ -31,13 +28,13 @@ public class AttachmentRepositoryJpa implements AttachmentRepository {
   private AttachmentEntityRepository repository;
 
   @Autowired
-  private AttachmentJpaMapper mapper;
+  private AttachmentMapper mapper;
 
   @Override
   public Attachment create(Attachment attachment) {
-    val entity = mapper.map(attachment);
+    val entity = mapper.entity(attachment);
     val created = repository.save(entity);
-    return mapper.map(created);
+    return mapper.domain(created);
   }
 
   @Override
@@ -53,19 +50,19 @@ public class AttachmentRepositoryJpa implements AttachmentRepository {
   @Override
   public Stream<Attachment> findAllDeletedBeforeThan(OffsetDateTime fixedDate) {
     return repository.findAllDeletedBeforeThan(fixedDate)
-      .map(mapper::map);
+      .map(mapper::domain);
   }
 
   @Override
   public Optional<Attachment> findBy(AttachmentId id) {
     return Optional.ofNullable(repository.findOne(id))
-      .map(mapper::map);
+      .map(mapper::domain);
   }
 
   @Override
   public void update(Attachment attachment) {
     val entity = repository.findOne(attachment.getId());
-    mapper.pass(mapper.map(attachment), entity);
+    mapper.pass(mapper.entity(attachment), entity);
     repository.save(entity);
   }
 }

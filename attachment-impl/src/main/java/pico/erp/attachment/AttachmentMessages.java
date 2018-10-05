@@ -5,7 +5,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Value;
-import pico.erp.attachment.category.data.AttachmentCategory;
+import pico.erp.attachment.category.AttachmentCategory;
 import pico.erp.shared.event.Event;
 
 public interface AttachmentMessages {

@@ -1,4 +1,4 @@
-package pico.erp.attachment.category.data;
+package pico.erp.attachment.category;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -16,9 +16,6 @@ import pico.erp.attachment.AttachmentRequests.ClearRequest;
 import pico.erp.attachment.AttachmentRequests.CopyRequest;
 import pico.erp.attachment.AttachmentRequests.CreateRequest;
 import pico.erp.attachment.AttachmentRequests.DeleteRequest;
-import pico.erp.attachment.data.AttachmentData;
-import pico.erp.attachment.data.AttachmentId;
-import pico.erp.attachment.data.AttachmentImageData;
 import pico.erp.attachment.item.AttachmentItem;
 import pico.erp.attachment.item.AttachmentItemMessages;
 import pico.erp.attachment.item.AttachmentItemRepository;
@@ -47,7 +44,7 @@ public class AttachmentServiceLogic implements AttachmentService {
   private EventPublisher eventPublisher;
 
   @Autowired
-  private IconConfiguration iconConfiguration;
+  private AttachmentIconConfiguration attachmentIconConfiguration;
 
   @Setter
   @Value("${attachment.no-thumbnail.location}")
@@ -144,7 +141,7 @@ public class AttachmentServiceLogic implements AttachmentService {
 
   @Override
   public AttachmentImageData getIcon(String contentType) {
-    return iconConfiguration.get(contentType);
+    return attachmentIconConfiguration.get(contentType);
   }
 
   @Override

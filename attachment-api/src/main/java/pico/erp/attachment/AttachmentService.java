@@ -6,9 +6,6 @@ import pico.erp.attachment.AttachmentRequests.ClearRequest;
 import pico.erp.attachment.AttachmentRequests.CopyRequest;
 import pico.erp.attachment.AttachmentRequests.CreateRequest;
 import pico.erp.attachment.AttachmentRequests.DeleteRequest;
-import pico.erp.attachment.data.AttachmentData;
-import pico.erp.attachment.data.AttachmentId;
-import pico.erp.attachment.data.AttachmentImageData;
 
 public interface AttachmentService {
 /*

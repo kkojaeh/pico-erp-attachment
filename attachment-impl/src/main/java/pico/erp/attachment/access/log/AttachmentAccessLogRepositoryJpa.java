@@ -1,12 +1,10 @@
-package pico.erp.attachment.jpa;
+package pico.erp.attachment.access.log;
 
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pico.erp.attachment.access.log.AttachmentAccessLog;
-import pico.erp.attachment.access.log.AttachmentAccessLogRepository;
 
 @Repository
 interface AttachmentAccessLogEntityRepository extends
@@ -22,12 +20,12 @@ public class AttachmentAccessLogRepositoryJpa implements AttachmentAccessLogRepo
   private AttachmentAccessLogEntityRepository repository;
 
   @Autowired
-  private AttachmentJpaMapper mapper;
+  private AttachmentAccessLogMapper mapper;
 
   @Override
   public AttachmentAccessLog create(AttachmentAccessLog log) {
-    val entity = mapper.map(log);
+    val entity = mapper.entity(log);
     val created = repository.save(entity);
-    return mapper.map(created);
+    return mapper.domain(created);
   }
 }

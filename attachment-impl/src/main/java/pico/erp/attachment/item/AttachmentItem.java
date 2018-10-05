@@ -16,9 +16,7 @@ import lombok.val;
 import pico.erp.attachment.Attachment;
 import pico.erp.attachment.AttachmentExceptions;
 import pico.erp.attachment.item.AttachmentItemMessages.RecoverResponse;
-import pico.erp.attachment.item.data.AttachmentItemId;
-import pico.erp.attachment.item.data.AttachmentItemInfo;
-import pico.erp.attachment.storage.data.AttachmentStorageKey;
+import pico.erp.attachment.storage.AttachmentStorageKey;
 import pico.erp.shared.data.Auditor;
 
 @Builder(toBuilder = true)

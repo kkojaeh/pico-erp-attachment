@@ -2,8 +2,7 @@ package pico.erp.attachment.storage;
 
 import java.io.InputStream;
 import java.net.URI;
-import pico.erp.attachment.item.data.AttachmentItemInfo;
-import pico.erp.attachment.storage.data.AttachmentStorageKey;
+import pico.erp.attachment.item.AttachmentItemInfo;
 
 public interface AttachmentStorageStrategy {
 

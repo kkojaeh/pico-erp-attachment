@@ -13,12 +13,11 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
-import pico.erp.attachment.data.AttachmentImageData;
 
 @Configuration
 @ConfigurationProperties(prefix = "icon")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class IconConfiguration {
+public class AttachmentIconConfiguration {
 
   @Setter
   Resource unknown;

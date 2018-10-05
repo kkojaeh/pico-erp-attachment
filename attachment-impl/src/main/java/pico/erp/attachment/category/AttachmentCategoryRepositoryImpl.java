@@ -6,8 +6,6 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
-import pico.erp.attachment.category.data.AttachmentCategory;
-import pico.erp.attachment.category.data.AttachmentCategoryId;
 
 @Repository
 public class AttachmentCategoryRepositoryImpl implements AttachmentCategoryRepository {

@@ -9,10 +9,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
-import pico.erp.attachment.data.AttachmentAccessTypeKind;
-import pico.erp.attachment.data.AttachmentId;
+import pico.erp.attachment.AttachmentAccessTypeKind;
+import pico.erp.attachment.AttachmentId;
 import pico.erp.attachment.item.AttachmentItem;
-import pico.erp.attachment.item.data.AttachmentItemId;
+import pico.erp.attachment.item.AttachmentItemId;
 import pico.erp.shared.data.Auditor;
 
 @Getter

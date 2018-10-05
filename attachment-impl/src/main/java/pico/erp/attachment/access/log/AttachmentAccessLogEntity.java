@@ -1,4 +1,4 @@
-package pico.erp.attachment.jpa;
+package pico.erp.attachment.access.log;
 
 import java.time.OffsetDateTime;
 import javax.persistence.AttributeOverride;
@@ -22,9 +22,9 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import pico.erp.attachment.data.AttachmentAccessTypeKind;
-import pico.erp.attachment.data.AttachmentId;
-import pico.erp.attachment.item.data.AttachmentItemId;
+import pico.erp.attachment.AttachmentAccessTypeKind;
+import pico.erp.attachment.AttachmentId;
+import pico.erp.attachment.item.AttachmentItemId;
 import pico.erp.shared.TypeDefinitions;
 import pico.erp.shared.data.Auditor;
 

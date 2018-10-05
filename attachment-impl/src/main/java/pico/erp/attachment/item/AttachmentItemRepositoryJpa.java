@@ -1,4 +1,4 @@
-package pico.erp.attachment.jpa;
+package pico.erp.attachment.item;
 
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -10,10 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pico.erp.attachment.data.AttachmentId;
-import pico.erp.attachment.item.AttachmentItem;
-import pico.erp.attachment.item.AttachmentItemRepository;
-import pico.erp.attachment.item.data.AttachmentItemId;
+import pico.erp.attachment.AttachmentId;
 
 @Repository
 interface AttachmentItemEntityRepository extends
@@ -37,13 +34,13 @@ public class AttachmentItemRepositoryJpa implements AttachmentItemRepository {
   private AttachmentItemEntityRepository repository;
 
   @Autowired
-  private AttachmentJpaMapper mapper;
+  private AttachmentItemMapper mapper;
 
   @Override
   public AttachmentItem create(AttachmentItem item) {
-    val entity = mapper.map(item);
+    val entity = mapper.entity(item);
     val created = repository.save(entity);
-    return mapper.map(created);
+    return mapper.domain(created);
   }
 
   @Override
@@ -54,7 +51,7 @@ public class AttachmentItemRepositoryJpa implements AttachmentItemRepository {
   @Override
   public Stream<AttachmentItem> findAllBy(AttachmentId attachmentId) {
     return repository.findAllBy(attachmentId)
-      .map(mapper::map);
+      .map(mapper::domain);
   }
 
   @Override
@@ -65,19 +62,19 @@ public class AttachmentItemRepositoryJpa implements AttachmentItemRepository {
   @Override
   public Stream<AttachmentItem> findAllDeletedBeforeThan(OffsetDateTime fixedDate) {
     return repository.findAllDeletedBeforeThan(fixedDate)
-      .map(mapper::map);
+      .map(mapper::domain);
   }
 
   @Override
   public Optional<AttachmentItem> findBy(AttachmentItemId id) {
     return Optional.ofNullable(repository.findOne(id))
-      .map(mapper::map);
+      .map(mapper::domain);
   }
 
   @Override
   public void update(AttachmentItem item) {
     val entity = repository.findOne(item.getId());
-    mapper.pass(mapper.map(item), entity);
+    mapper.pass(mapper.entity(item), entity);
     repository.save(entity);
   }
 }

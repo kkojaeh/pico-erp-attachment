@@ -1,12 +1,12 @@
-package pico.erp.attachment.access.log.data;
+package pico.erp.attachment.access.log;
 
 import java.time.OffsetDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pico.erp.attachment.data.AttachmentAccessTypeKind;
-import pico.erp.attachment.data.AttachmentId;
-import pico.erp.attachment.item.data.AttachmentItemId;
+import pico.erp.attachment.AttachmentAccessTypeKind;
+import pico.erp.attachment.AttachmentId;
+import pico.erp.attachment.item.AttachmentItemId;
 import pico.erp.shared.data.Auditor;
 
 @Data

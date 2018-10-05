@@ -1,4 +1,4 @@
-package pico.erp.attachment.data;
+package pico.erp.attachment;
 
 import java.io.InputStream;
 import lombok.Builder;

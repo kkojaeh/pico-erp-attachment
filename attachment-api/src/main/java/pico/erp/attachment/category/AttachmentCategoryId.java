@@ -1,8 +1,7 @@
-package pico.erp.attachment.item.data;
+package pico.erp.attachment.category;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.io.Serializable;
-import java.util.UUID;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -21,7 +20,7 @@ import pico.erp.shared.TypeDefinitions;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = "value")
 @ToString
-public class AttachmentItemId implements Serializable {
+public class AttachmentCategoryId implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -30,12 +29,8 @@ public class AttachmentItemId implements Serializable {
   @NotNull
   private String value;
 
-  public static AttachmentItemId from(@NonNull String value) {
-    return new AttachmentItemId(value);
-  }
-
-  public static AttachmentItemId generate() {
-    return from(UUID.randomUUID().toString());
+  public static AttachmentCategoryId from(@NonNull String value) {
+    return new AttachmentCategoryId(value);
   }
 
 }

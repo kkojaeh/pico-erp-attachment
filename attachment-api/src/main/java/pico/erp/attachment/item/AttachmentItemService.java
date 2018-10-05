@@ -5,11 +5,9 @@ import java.net.URI;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import pico.erp.attachment.data.AttachmentId;
-import pico.erp.attachment.data.AttachmentImageData;
+import pico.erp.attachment.AttachmentId;
+import pico.erp.attachment.AttachmentImageData;
 import pico.erp.attachment.item.AttachmentItemRequests.RecoverRequest;
-import pico.erp.attachment.item.data.AttachmentItemData;
-import pico.erp.attachment.item.data.AttachmentItemId;
 
 public interface AttachmentItemService {
 

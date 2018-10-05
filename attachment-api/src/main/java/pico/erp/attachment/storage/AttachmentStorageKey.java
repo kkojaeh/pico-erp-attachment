@@ -1,4 +1,4 @@
-package pico.erp.attachment.category.data;
+package pico.erp.attachment.storage;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.io.Serializable;
@@ -20,7 +20,7 @@ import pico.erp.shared.TypeDefinitions;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = "value")
 @ToString
-public class AttachmentCategoryId implements Serializable {
+public class AttachmentStorageKey implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -29,8 +29,8 @@ public class AttachmentCategoryId implements Serializable {
   @NotNull
   private String value;
 
-  public static AttachmentCategoryId from(@NonNull String value) {
-    return new AttachmentCategoryId(value);
+  public static AttachmentStorageKey from(@NonNull String value) {
+    return new AttachmentStorageKey(value);
   }
 
 }

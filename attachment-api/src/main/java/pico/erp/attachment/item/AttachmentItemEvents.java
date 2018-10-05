@@ -3,7 +3,6 @@ package pico.erp.attachment.item;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pico.erp.attachment.item.data.AttachmentItemId;
 import pico.erp.shared.data.Auditor;
 import pico.erp.shared.event.Event;
 

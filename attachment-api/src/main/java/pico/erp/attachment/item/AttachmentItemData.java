@@ -1,4 +1,4 @@
-package pico.erp.attachment.item.data;
+package pico.erp.attachment.item;
 
 import java.time.OffsetDateTime;
 import lombok.Data;

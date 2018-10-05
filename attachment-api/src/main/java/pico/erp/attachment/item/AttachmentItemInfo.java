@@ -1,4 +1,4 @@
-package pico.erp.attachment.item.data;
+package pico.erp.attachment.item;
 
 public interface AttachmentItemInfo {
 

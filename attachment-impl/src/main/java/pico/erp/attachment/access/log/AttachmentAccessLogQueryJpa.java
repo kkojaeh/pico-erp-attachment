@@ -1,4 +1,4 @@
-package pico.erp.attachment.jpa;
+package pico.erp.attachment.access.log;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
@@ -12,8 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import pico.erp.attachment.access.log.AttachmentAccessLogQuery;
-import pico.erp.attachment.access.log.data.AttachmentAccessLogView;
 import pico.erp.shared.Public;
 import pico.erp.shared.jpa.QueryDslJpaSupport;
 
