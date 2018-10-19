@@ -47,12 +47,12 @@ public class AttachmentAccessLogEntity {
   Long id;
 
   @AttributeOverrides({
-    @AttributeOverride(name = "value", column = @Column(name = "ATTACHMENT_ID", length = TypeDefinitions.ID_LENGTH, updatable = false))
+    @AttributeOverride(name = "value", column = @Column(name = "ATTACHMENT_ID", length = TypeDefinitions.UUID_BINARY_LENGTH, updatable = false))
   })
   AttachmentId attachmentId;
 
   @AttributeOverrides({
-    @AttributeOverride(name = "value", column = @Column(name = "ATTACHMENT_ITEM_ID", length = TypeDefinitions.ID_LENGTH, updatable = false))
+    @AttributeOverride(name = "value", column = @Column(name = "ATTACHMENT_ITEM_ID", length = TypeDefinitions.UUID_BINARY_LENGTH, updatable = false))
   })
   AttachmentItemId attachmentItemId;
 

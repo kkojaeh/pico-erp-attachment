@@ -1,5 +1,5 @@
 create table atm_attachment (
-	id varchar(50) not null,
+	id binary(16) not null,
 	category_id varchar(50),
 	created_by_id varchar(50),
 	created_by_name varchar(50),
@@ -20,8 +20,8 @@ create table atm_attachment_access_log (
 	accessed_date datetime,
 	accessor_id varchar(50),
 	accessor_name varchar(50),
-	attachment_id varchar(50),
-	attachment_item_id varchar(50),
+	attachment_id binary(16),
+	attachment_item_id binary(16),
 	content_length bigint,
 	content_type varchar(100),
 	name varchar(300),
@@ -29,14 +29,18 @@ create table atm_attachment_access_log (
 ) engine=InnoDB;
 
 create table atm_attachment_item (
-	id varchar(50) not null,
+	id binary(16) not null,
 	content_length bigint,
 	content_type varchar(100),
+	created_by_id varchar(50),
+	created_by_name varchar(50),
+	created_date datetime,
+	deleted bit,
+	deleted_date datetime,
+	last_accessed_date datetime,
 	name varchar(300),
-	removed bit,
-	removed_date datetime,
 	storage_key varchar(50),
-	attachment_id varchar(50),
+	attachment_id binary(16),
 	primary key (id)
 ) engine=InnoDB;
 

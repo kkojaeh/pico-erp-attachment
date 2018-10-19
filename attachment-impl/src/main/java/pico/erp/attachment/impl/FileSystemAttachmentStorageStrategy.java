@@ -71,7 +71,7 @@ public class FileSystemAttachmentStorageStrategy implements AttachmentStorageStr
   @Override
   @SneakyThrows
   public AttachmentStorageKey save(AttachmentItemInfo info, InputStream inputStream) {
-    File destFile = new File(rootDir, info.getId().getValue());
+    File destFile = new File(rootDir, info.getId().getValue().toString());
     FileUtils.copyInputStreamToFile(inputStream, destFile);
     return AttachmentStorageKey.from(rootDir.toURI().relativize(destFile.toURI()).toString());
   }
