@@ -1,5 +1,6 @@
 package pico.erp.attachment.item;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.io.Serializable;
 import java.util.UUID;
@@ -27,6 +28,7 @@ public class AttachmentItemId implements Serializable {
   @NotNull
   private UUID value;
 
+  @JsonCreator
   public static AttachmentItemId from(@NonNull String value) {
     try {
       return from(UUID.fromString(value));
