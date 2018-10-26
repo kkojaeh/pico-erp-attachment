@@ -16,7 +16,7 @@ import pico.erp.attachment.AttachmentId;
 interface AttachmentItemEntityRepository extends
   CrudRepository<AttachmentItemEntity, AttachmentItemId> {
 
-  @Query("SELECT ai FROM AttachmentItem ai JOIN ai.attachment a WHERE a.id = :attachmentId ORDER BY a.createdDate ASC")
+  @Query("SELECT ai FROM AttachmentItem ai WHERE ai.attachmentId = :attachmentId ORDER BY ai.createdDate ASC")
   Stream<AttachmentItemEntity> findAllBy(
     @Param("attachmentId") AttachmentId attachmentId);
 

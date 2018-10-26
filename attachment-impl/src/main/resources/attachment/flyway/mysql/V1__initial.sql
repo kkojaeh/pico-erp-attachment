@@ -30,6 +30,7 @@ create table atm_attachment_access_log (
 
 create table atm_attachment_item (
 	id binary(16) not null,
+	attachment_id binary(16),
 	content_length bigint,
 	content_type varchar(100),
 	created_by_id varchar(50),
@@ -40,13 +41,11 @@ create table atm_attachment_item (
 	last_accessed_date datetime,
 	name varchar(300),
 	storage_key varchar(50),
-	attachment_id binary(16),
 	primary key (id)
 ) engine=InnoDB;
 
-create index ATM_ATTACHMENT_ACCESS_LOG_ATTACHMENT_ID_IDX
+create index IDX55aoqwd00x11xb0h5rhfvcvus
 	on atm_attachment_access_log (attachment_id);
 
-alter table atm_attachment_item
-	add constraint FKpfbjfuv2pd6h4e62ob62kp5uo foreign key (attachment_id)
-	references atm_attachment (id);
+create index IDX3viggd8m94jgmepo7y8uvkbv2
+	on atm_attachment_item (attachment_id);

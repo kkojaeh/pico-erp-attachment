@@ -31,7 +31,7 @@ import pico.erp.shared.data.Auditor;
 @Getter
 @Entity(name = "AttachmentAccessLog")
 @Table(name = "ATM_ATTACHMENT_ACCESS_LOG", indexes = {
-  @Index(name = "ATM_ATTACHMENT_ACCESS_LOG_ATTACHMENT_ID_IDX", columnList = "ATTACHMENT_ID")
+  @Index(columnList = "ATTACHMENT_ID")
 })
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @EntityListeners(AuditingEntityListener.class)

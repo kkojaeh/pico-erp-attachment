@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.AuditorAware;
 import pico.erp.attachment.Attachment;
-import pico.erp.attachment.AttachmentEntity;
 import pico.erp.attachment.AttachmentId;
 import pico.erp.attachment.AttachmentMapper;
 import pico.erp.attachment.storage.AttachmentStorageStrategy;
@@ -35,7 +34,7 @@ public abstract class AttachmentItemMapper {
   public AttachmentItem domain(AttachmentItemEntity entity) {
     return AttachmentItem.builder()
       .id(entity.getId())
-      .attachment(attachmentMapper.domain(entity.getAttachment()))
+      .attachment(map(entity.getAttachmentId()))
       .storageKey(entity.getStorageKey())
       .name(entity.getName())
       .contentType(entity.getContentType())
@@ -48,11 +47,10 @@ public abstract class AttachmentItemMapper {
       .build();
   }
 
+  @Mappings({
+    @Mapping(target = "attachmentId", source = "attachment.id")
+  })
   public abstract AttachmentItemEntity entity(AttachmentItem item);
-
-  protected AttachmentEntity entity(Attachment attachment) {
-    return attachmentMapper.entity(attachment);
-  }
 
   @Mappings({
     @Mapping(target = "attachmentStorageStrategy", expression = "java(attachmentStorageStrategy)"),
