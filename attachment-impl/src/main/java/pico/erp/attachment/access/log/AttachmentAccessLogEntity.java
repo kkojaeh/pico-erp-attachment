@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -28,7 +28,7 @@ import pico.erp.attachment.item.AttachmentItemId;
 import pico.erp.shared.TypeDefinitions;
 import pico.erp.shared.data.Auditor;
 
-@Getter
+@Data
 @Entity(name = "AttachmentAccessLog")
 @Table(name = "ATM_ATTACHMENT_ACCESS_LOG", indexes = {
   @Index(columnList = "ATTACHMENT_ID")

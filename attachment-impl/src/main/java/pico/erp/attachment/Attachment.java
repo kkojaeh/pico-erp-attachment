@@ -46,14 +46,12 @@ public class Attachment implements Serializable {
 
   OffsetDateTime createdDate;
 
-  OffsetDateTime lastAccessedDate;
-
   public Attachment() {
     deleted = false;
   }
 
   public AttachmentMessages.CreateResponse apply(AttachmentMessages.CreateRequest request) {
-    id = AttachmentId.generate();
+    id = request.getId();
     category = request.getCategory();
     multiple = request.isMultiple();
     deleted = false;
@@ -80,11 +78,6 @@ public class Attachment implements Serializable {
 
   public AttachmentMessages.ClearResponse apply(AttachmentMessages.ClearRequest request) {
     return new AttachmentMessages.ClearResponse(Collections.emptyList());
-  }
-
-  public AttachmentMessages.AccessResponse apply(AttachmentMessages.AccessRequest request) {
-    lastAccessedDate = OffsetDateTime.now();
-    return new AttachmentMessages.AccessResponse(Collections.emptyList());
   }
 
 }

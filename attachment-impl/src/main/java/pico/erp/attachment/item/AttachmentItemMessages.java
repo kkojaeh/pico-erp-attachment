@@ -19,6 +19,8 @@ public interface AttachmentItemMessages {
   @Data
   class CreateRequest {
 
+    AttachmentItemId id;
+
     @NotNull
     Attachment attachment;
 

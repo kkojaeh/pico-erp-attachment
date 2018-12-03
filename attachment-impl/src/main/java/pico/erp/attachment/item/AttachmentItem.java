@@ -79,7 +79,7 @@ public class AttachmentItem implements Serializable, AttachmentItemInfo {
   }
 
   public AttachmentItemMessages.CreateResponse apply(AttachmentItemMessages.CreateRequest request) {
-    this.id = AttachmentItemId.generate();
+    this.id = request.getId();
     this.attachment = request.getAttachment();
     this.name = request.getName();
     this.contentLength = request.getContentLength();

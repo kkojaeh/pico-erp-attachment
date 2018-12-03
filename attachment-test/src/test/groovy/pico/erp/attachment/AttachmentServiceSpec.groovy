@@ -1,18 +1,21 @@
 package pico.erp.attachment
 
-import lombok.Getter
+
 import org.apache.commons.io.IOUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.data.domain.PageRequest
 import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
 import pico.erp.attachment.access.log.AttachmentAccessLogQuery
+import pico.erp.attachment.access.log.AttachmentAccessLogView
 import pico.erp.attachment.category.AttachmentCategory
 import pico.erp.attachment.category.AttachmentCategoryId
 import pico.erp.attachment.impl.FileSystemAttachmentStorageStrategy
+import pico.erp.attachment.item.AttachmentItemId
 import pico.erp.attachment.item.AttachmentItemRequests
 import pico.erp.attachment.item.AttachmentItemService
 import pico.erp.attachment.storage.AttachmentStorageStrategy
@@ -29,18 +32,13 @@ import java.time.OffsetDateTime
 @Configuration
 class AttachmentServiceSpec extends Specification {
 
-  @Getter
-  class TestAttachmentCategory implements AttachmentCategory {
-
-    AttachmentCategoryId id = AttachmentCategoryId.from("TEST")
-
-    String name = "테스트"
-  }
-
   @Public
   @Bean
   AttachmentCategory testAttachmentCategory() {
-    return new TestAttachmentCategory()
+    return new AttachmentCategory.AttachmentCategoryImpl(
+      AttachmentCategoryId.from("TEST"),
+      "테스트"
+    )
   }
 
   @Public
@@ -69,15 +67,34 @@ class AttachmentServiceSpec extends Specification {
 헬로 그냥 텍스트
 """
 
+  def categoryId = AttachmentCategoryId.from("TEST")
+
+  def multipleId = AttachmentId.from("multiple")
+
+  def singularId = AttachmentId.from("singular")
+
+  def multipleItemId = AttachmentItemId.from("multiple-item")
+
+  def multipleItemId2 = AttachmentItemId.from("multiple-item2")
+
+  def singularItemId = AttachmentItemId.from("singular-item")
+
+  def singularItemId2 = AttachmentItemId.from("singular-item2")
+
   def setup() {
-    multiple = attachmentService.create(new AttachmentRequests.CreateRequest(multiple: true, categoryId: AttachmentCategoryId.from("TEST")))
-    singular = attachmentService.create(new AttachmentRequests.CreateRequest(multiple: false, categoryId: AttachmentCategoryId.from("TEST")))
+    attachmentService.create(
+      new AttachmentRequests.CreateRequest(id: multipleId, multiple: true, categoryId: categoryId)
+    )
+    attachmentService.create(
+      new AttachmentRequests.CreateRequest(id: singularId, multiple: false, categoryId: categoryId)
+    )
   }
 
   def "단일 첨부에 두개의 파일을 추가하면 마지막 파일만 존재"() {
     when:
     attachmentItemService.create(new AttachmentItemRequests.CreateRequest(
-      attachmentId: singular.id,
+      id: singularItemId,
+      attachmentId: singularId,
       name: "테스트 파일.txt",
       contentType: "text/plain",
       contentLength: testContent.getBytes().length,
@@ -85,14 +102,15 @@ class AttachmentServiceSpec extends Specification {
     ))
 
     attachmentItemService.create(new AttachmentItemRequests.CreateRequest(
-      attachmentId: singular.id,
+      id: singularItemId2,
+      attachmentId: singularId,
       name: "테스트 파일2.txt",
       contentType: "text/plain",
       contentLength: testContent.getBytes().length,
       inputStream: new ByteArrayInputStream(testContent.getBytes())
     ))
 
-    def items = attachmentItemService.getAll(singular.id)
+    def items = attachmentItemService.getAll(singularId)
 
     then:
     items.size() == 2
@@ -103,7 +121,8 @@ class AttachmentServiceSpec extends Specification {
   def "복수 첨부에 파일을 추가하면 모두 존재"() {
     when:
     attachmentItemService.create(new AttachmentItemRequests.CreateRequest(
-      attachmentId: multiple.id,
+      id: multipleItemId,
+      attachmentId: multipleId,
       name: "테스트 파일.txt",
       contentType: "text/plain",
       contentLength: testContent.getBytes().length,
@@ -111,25 +130,27 @@ class AttachmentServiceSpec extends Specification {
     ))
 
     attachmentItemService.create(new AttachmentItemRequests.CreateRequest(
-      attachmentId: multiple.id,
+      id: multipleItemId2,
+      attachmentId: multipleId,
       name: "테스트 파일2.txt",
       contentType: "text/plain",
       contentLength: testContent.getBytes().length,
       inputStream: new ByteArrayInputStream(testContent.getBytes())
     ))
 
-    def items = attachmentItemService.getAll(multiple.id)
+    def items = attachmentItemService.getAll(multipleId)
 
     then:
     items.size() == 2
-    items.get(0).name == "테스트 파일.txt"
-    items.get(1).name == "테스트 파일2.txt"
+    items[0].name == "테스트 파일.txt"
+    items[1].name == "테스트 파일2.txt"
   }
 
   def "첨부에서 파일을 삭제(not force)해도 복구하면 접근이 가능하다"() {
     when:
     def item = attachmentItemService.create(new AttachmentItemRequests.CreateRequest(
-      attachmentId: singular.id,
+      id: singularItemId,
+      attachmentId: singularId,
       name: "테스트 파일.txt",
       contentType: "text/plain",
       contentLength: testContent.getBytes().length,
@@ -138,20 +159,20 @@ class AttachmentServiceSpec extends Specification {
 
     attachmentItemService.delete(
       new AttachmentItemRequests.DeleteRequest(
-        id: item.id,
+        id: singularItemId,
         force: false
       )
     )
 
     attachmentItemService.recover(
       new AttachmentItemRequests.RecoverRequest(
-        id: item.id
+        id: singularItemId
       )
     )
 
     def accessedContent = IOUtils.toString(attachmentItemService.access(
       new AttachmentItemRequests.DirectAccessRequest(
-        id: item.id
+        id: singularItemId
       )
     ), "UTF-8")
 
@@ -162,7 +183,8 @@ class AttachmentServiceSpec extends Specification {
   def "첨부를 삭제(not force)해도 바로 지워지지 않고 접근 방지 된다"() {
     when:
     def item = attachmentItemService.create(new AttachmentItemRequests.CreateRequest(
-      attachmentId: singular.id,
+      id: singularItemId,
+      attachmentId: singularId,
       name: "테스트 파일.txt",
       contentType: "text/plain",
       contentLength: testContent.getBytes().length,
@@ -171,24 +193,25 @@ class AttachmentServiceSpec extends Specification {
 
     attachmentService.delete(
       new AttachmentRequests.DeleteRequest(
-        id: singular.id,
+        id: singularId,
         force: false
       )
     )
     def accessedContent = IOUtils.toString(attachmentItemService.access(
       new AttachmentItemRequests.DirectAccessRequest(
-        id: item.id
+        id: singularItemId
       )
     ), "UTF-8")
 
     then:
-      thrown(AttachmentExceptions.CannotAccessException)
+    thrown(AttachmentExceptions.CannotAccessException)
   }
 
   def "첨부를 삭제하고 현재시간기준으로 정리를 하면 접근할 수 없다"() {
     when:
     attachmentItemService.create(new AttachmentItemRequests.CreateRequest(
-      attachmentId: singular.id,
+      id: singularItemId,
+      attachmentId: singularId,
       name: "테스트 파일.txt",
       contentType: "text/plain",
       contentLength: testContent.getBytes().length,
@@ -197,7 +220,7 @@ class AttachmentServiceSpec extends Specification {
 
     attachmentService.delete(
       new AttachmentRequests.DeleteRequest(
-        id: singular.id,
+        id: singularId,
         force: false
       )
     )
@@ -208,31 +231,31 @@ class AttachmentServiceSpec extends Specification {
       )
     )
 
-    attachmentService.get(singular.id)
+    attachmentService.get(singularId)
 
     then:
     thrown(AttachmentExceptions.NotFoundException)
   }
 
-  /*def "첨부에 URI 접근하면 로그가 기록 된다"() {
+  def "첨부에 URI 접근하면 로그가 기록 된다"() {
     when:
-    def item = attachmentService.addItem(new AttachmentService.AddItemRequest(
-      id: singular.id,
+    attachmentItemService.create(new AttachmentItemRequests.CreateRequest(
+      id: singularItemId,
+      attachmentId: singularId,
       name: "테스트 파일.txt",
       contentType: "text/plain",
       contentLength: testContent.getBytes().length,
       inputStream: new ByteArrayInputStream(testContent.getBytes())
     ))
 
-    attachmentService.access(
-      new AttachmentService.UriAccessRequest(
-        id: singular.id,
-        itemId: item.id
+    attachmentItemService.access(
+      new AttachmentItemRequests.UriAccessRequest(
+        id: singularItemId
       )
     )
 
     def logs = attachmentAccessLogQuery.retrieve(
-      new DefaultQueryFilter(),
+      new AttachmentAccessLogView.Filter(),
       new PageRequest(0, 10)
     )
 
@@ -243,23 +266,23 @@ class AttachmentServiceSpec extends Specification {
 
   def "첨부에 DIRECT 접근하면 로그가 기록 된다"() {
     when:
-    def item = attachmentService.addItem(new AttachmentService.AddItemRequest(
-      id: singular.id,
+    attachmentItemService.create(new AttachmentItemRequests.CreateRequest(
+      id: singularItemId,
+      attachmentId: singularId,
       name: "테스트 파일.txt",
       contentType: "text/plain",
       contentLength: testContent.getBytes().length,
       inputStream: new ByteArrayInputStream(testContent.getBytes())
     ))
 
-    attachmentService.access(
-      new AttachmentService.DirectAccessRequest(
-        id: singular.id,
-        itemId: item.id
+    attachmentItemService.access(
+      new AttachmentItemRequests.DirectAccessRequest(
+        id: singularItemId
       )
     )
 
     def logs = attachmentAccessLogQuery.retrieve(
-      new DefaultQueryFilter(),
+      new AttachmentAccessLogView.Filter(),
       new PageRequest(0, 10)
     )
 
@@ -267,6 +290,5 @@ class AttachmentServiceSpec extends Specification {
     logs.totalElements == 1
     logs.content.get(0).accessType == AttachmentAccessTypeKind.DIRECT
   }
-*/
 
 }

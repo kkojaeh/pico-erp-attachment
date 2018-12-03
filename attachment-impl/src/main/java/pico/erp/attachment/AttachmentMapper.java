@@ -44,7 +44,6 @@ public abstract class AttachmentMapper {
       )
       .deleted(entity.isDeleted())
       .deletedDate(entity.getDeletedDate())
-      .lastAccessedDate(entity.getLastAccessedDate())
       .createdBy(entity.getCreatedBy())
       .createdDate(entity.getCreatedDate())
       .build();

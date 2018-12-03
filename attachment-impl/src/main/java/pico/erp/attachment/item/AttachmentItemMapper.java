@@ -31,7 +31,7 @@ public abstract class AttachmentItemMapper {
   @Autowired
   protected AttachmentStorageStrategy attachmentStorageStrategy;
 
-  public AttachmentItem domain(AttachmentItemEntity entity) {
+  public AttachmentItem jpa(AttachmentItemEntity entity) {
     return AttachmentItem.builder()
       .id(entity.getId())
       .attachment(map(entity.getAttachmentId()))
@@ -50,7 +50,7 @@ public abstract class AttachmentItemMapper {
   @Mappings({
     @Mapping(target = "attachmentId", source = "attachment.id")
   })
-  public abstract AttachmentItemEntity entity(AttachmentItem item);
+  public abstract AttachmentItemEntity jpa(AttachmentItem item);
 
   @Mappings({
     @Mapping(target = "attachmentStorageStrategy", expression = "java(attachmentStorageStrategy)"),

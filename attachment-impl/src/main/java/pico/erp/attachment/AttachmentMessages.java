@@ -15,6 +15,10 @@ public interface AttachmentMessages {
 
     @Valid
     @NotNull
+    AttachmentId id;
+
+    @Valid
+    @NotNull
     AttachmentCategory category;
 
     boolean multiple;

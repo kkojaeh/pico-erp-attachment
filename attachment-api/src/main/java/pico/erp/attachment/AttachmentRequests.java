@@ -32,6 +32,10 @@ public interface AttachmentRequests {
   @AllArgsConstructor
   class CreateRequest {
 
+    @Valid
+    @NotNull
+    AttachmentId id;
+
     boolean multiple;
 
     @Valid

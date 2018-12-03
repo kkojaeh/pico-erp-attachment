@@ -43,6 +43,10 @@ public interface AttachmentItemRequests {
 
     @Valid
     @NotNull
+    AttachmentItemId id;
+
+    @Valid
+    @NotNull
     AttachmentId attachmentId;
 
     @NotNull

@@ -1,6 +1,5 @@
 package pico.erp.attachment;
 
-import java.time.OffsetDateTime;
 import lombok.Data;
 import pico.erp.attachment.category.AttachmentCategoryId;
 import pico.erp.shared.data.Auditor;
@@ -17,7 +16,5 @@ public class AttachmentData {
   boolean multiple;
 
   Auditor createdBy;
-
-  OffsetDateTime lastAccessedDate;
 
 }

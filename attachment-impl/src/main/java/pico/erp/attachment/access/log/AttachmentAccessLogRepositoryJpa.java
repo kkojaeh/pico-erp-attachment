@@ -24,8 +24,8 @@ public class AttachmentAccessLogRepositoryJpa implements AttachmentAccessLogRepo
 
   @Override
   public AttachmentAccessLog create(AttachmentAccessLog log) {
-    val entity = mapper.entity(log);
+    val entity = mapper.jpa(log);
     val created = repository.save(entity);
-    return mapper.domain(created);
+    return mapper.jpa(created);
   }
 }

@@ -66,8 +66,10 @@ public class AttachmentItemEntity {
   @Column
   boolean deleted;
 
+  @Column
   OffsetDateTime deletedDate;
 
+  @Column
   OffsetDateTime lastAccessedDate;
 
   @Embedded

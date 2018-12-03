@@ -38,9 +38,9 @@ public class AttachmentItemRepositoryJpa implements AttachmentItemRepository {
 
   @Override
   public AttachmentItem create(AttachmentItem item) {
-    val entity = mapper.entity(item);
+    val entity = mapper.jpa(item);
     val created = repository.save(entity);
-    return mapper.domain(created);
+    return mapper.jpa(created);
   }
 
   @Override
@@ -51,7 +51,7 @@ public class AttachmentItemRepositoryJpa implements AttachmentItemRepository {
   @Override
   public Stream<AttachmentItem> findAllBy(AttachmentId attachmentId) {
     return repository.findAllBy(attachmentId)
-      .map(mapper::domain);
+      .map(mapper::jpa);
   }
 
   @Override
@@ -62,19 +62,19 @@ public class AttachmentItemRepositoryJpa implements AttachmentItemRepository {
   @Override
   public Stream<AttachmentItem> findAllDeletedBeforeThan(OffsetDateTime fixedDate) {
     return repository.findAllDeletedBeforeThan(fixedDate)
-      .map(mapper::domain);
+      .map(mapper::jpa);
   }
 
   @Override
   public Optional<AttachmentItem> findBy(AttachmentItemId id) {
     return Optional.ofNullable(repository.findOne(id))
-      .map(mapper::domain);
+      .map(mapper::jpa);
   }
 
   @Override
   public void update(AttachmentItem item) {
     val entity = repository.findOne(item.getId());
-    mapper.pass(mapper.entity(item), entity);
+    mapper.pass(mapper.jpa(item), entity);
     repository.save(entity);
   }
 }

@@ -62,9 +62,6 @@ public class AttachmentEntity implements Serializable {
   @Column
   OffsetDateTime deletedDate;
 
-  @Column
-  OffsetDateTime lastAccessedDate;
-
   @Embedded
   @AttributeOverrides({
     @AttributeOverride(name = "id", column = @Column(name = "CREATED_BY_ID", updatable = false, length = TypeDefinitions.ID_LENGTH)),
