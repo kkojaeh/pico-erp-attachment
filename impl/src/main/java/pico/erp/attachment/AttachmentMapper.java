@@ -6,6 +6,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import pico.erp.attachment.AttachmentExceptions.CategoryNotFoundException;
 import pico.erp.attachment.AttachmentMessages.CopyRequest;
 import pico.erp.attachment.AttachmentMessages.CreateRequest;
@@ -18,9 +19,11 @@ import pico.erp.attachment.category.AttachmentCategoryRepository;
 public abstract class AttachmentMapper {
 
 
+  @Lazy
   @Autowired
   protected AttachmentCategoryRepository attachmentCategoryRepository;
 
+  @Lazy
   @Autowired
   protected AttachmentRepository attachmentRepository;
 
