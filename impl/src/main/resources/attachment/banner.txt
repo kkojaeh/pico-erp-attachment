@@ -5,4 +5,4 @@
 /_/ |_\__/\__/\_,_/\__/_//_/_/_/_/\__/_//_/\__/
 
 
-made by http://patorjk.com/software/taag/#p=display&f=Small%20Slant&t=Attachment
+${application.version} - made by http://patorjk.com/software/taag/#p=display&f=Small%20Slant&t=Attachment

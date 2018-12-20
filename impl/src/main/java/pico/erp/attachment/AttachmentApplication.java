@@ -6,22 +6,25 @@ import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.util.Properties;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
+import pico.erp.shared.ApplicationId;
 import pico.erp.shared.ApplicationStarter;
 import pico.erp.shared.SpringBootConfigs;
 import pico.erp.shared.impl.ApplicationImpl;
+import pico.erp.user.UserApi;
 
 @Slf4j
 @SpringBootConfigs
 public class AttachmentApplication implements ApplicationStarter {
 
   public static final String CONFIG_NAME = "attachment/application";
-
-  public static final String CONFIG_NAME_PROPERTY = "spring.config.name=attachment/application";
 
   public static final Properties DEFAULT_PROPERTIES = new Properties();
 
@@ -39,6 +42,16 @@ public class AttachmentApplication implements ApplicationStarter {
   @SneakyThrows
   public static void main(String[] args) {
     application().run(args);
+  }
+
+  @Override
+  public Set<ApplicationId> getDependencies() {
+    return Stream.of(UserApi.ID).collect(Collectors.toSet());
+  }
+
+  @Override
+  public ApplicationId getId() {
+    return AttachmentApi.ID;
   }
 
   @Override
