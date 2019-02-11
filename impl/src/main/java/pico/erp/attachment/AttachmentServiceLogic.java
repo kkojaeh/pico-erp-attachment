@@ -60,12 +60,12 @@ public class AttachmentServiceLogic implements AttachmentService {
 
   private void clear(Attachment attachment) {
     val events = new LinkedList<Event>();
-    val response = attachment.apply(new AttachmentMessages.ClearRequest());
+    val response = attachment.apply(new AttachmentMessages.Clear.Request());
     events.addAll(response.getEvents());
     val items = attachmentItemRepository.findAllBy(attachment.getId()).collect(Collectors.toList());
 
     items.forEach(item -> {
-      val itemResponse = item.apply(new AttachmentItemMessages.DeleteRequest(true));
+      val itemResponse = item.apply(new AttachmentItemMessages.Delete.Request(true));
       events.addAll(itemResponse.getEvents());
     });
     items.forEach(item -> {
@@ -83,7 +83,7 @@ public class AttachmentServiceLogic implements AttachmentService {
   }
 
   private void clear(AttachmentItem item) {
-    val response = item.apply(new AttachmentItemMessages.ClearRequest());
+    val response = item.apply(new AttachmentItemMessages.Clear.Request());
     if (attachmentStorageStrategy.exists(item.getStorageKey())) {
       attachmentStorageStrategy.remove(item.getStorageKey());
     }

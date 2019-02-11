@@ -10,79 +10,105 @@ import pico.erp.shared.event.Event;
 
 public interface AttachmentMessages {
 
-  @Data
-  class CreateRequest {
 
-    @Valid
-    @NotNull
-    AttachmentId id;
+  interface Create {
 
-    @Valid
-    @NotNull
-    AttachmentCategory category;
+    @Data
+    class Request {
 
-    boolean multiple;
+      @Valid
+      @NotNull
+      AttachmentId id;
 
-  }
+      @Valid
+      @NotNull
+      AttachmentCategory category;
 
-  @Data
-  class DeleteRequest {
+      boolean multiple;
 
-    boolean force;
+    }
 
-  }
+    @Value
+    class Response {
 
-  @Data
-  class CopyRequest {
+      Collection<Event> events;
 
-  }
-
-  @Value
-  class CreateResponse {
-
-    Collection<Event> events;
+    }
 
   }
 
-  @Value
-  class DeleteResponse {
+  interface Delete {
 
-    Collection<Event> events;
+    @Data
+    class Request {
 
-  }
+      boolean force;
 
-  @Value
-  class CopyResponse {
+    }
 
-    Attachment copied;
+    @Value
+    class Response {
 
-    Collection<Event> events;
+      Collection<Event> events;
 
-  }
-
-  @Data
-  class ClearRequest {
+    }
 
   }
 
-  @Value
-  class ClearResponse {
+  interface Copy {
 
-    Collection<Event> events;
+    @Data
+    class Request {
+
+    }
+
+    @Value
+    class Response {
+
+      Attachment copied;
+
+      Collection<Event> events;
+
+    }
 
   }
 
-  @Data
-  class AccessRequest {
+
+  interface Clear {
+
+    @Data
+    class Request {
+
+    }
+
+    @Value
+    class Response {
+
+      Collection<Event> events;
+
+    }
 
   }
 
-  @Value
-  class AccessResponse {
+  interface Access {
 
-    Collection<Event> events;
+    @Data
+    class Request {
+
+    }
+
+    @Value
+    class Response {
+
+      Collection<Event> events;
+
+    }
 
   }
+
+
+
+
 
 
 }

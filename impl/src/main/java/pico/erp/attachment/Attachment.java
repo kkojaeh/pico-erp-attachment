@@ -50,34 +50,34 @@ public class Attachment implements Serializable {
     deleted = false;
   }
 
-  public AttachmentMessages.CreateResponse apply(AttachmentMessages.CreateRequest request) {
+  public AttachmentMessages.Create.Response apply(AttachmentMessages.Create.Request request) {
     id = request.getId();
     category = request.getCategory();
     multiple = request.isMultiple();
     deleted = false;
-    return new AttachmentMessages.CreateResponse(Collections.emptyList());
+    return new AttachmentMessages.Create.Response(Collections.emptyList());
   }
 
-  public AttachmentMessages.DeleteResponse apply(AttachmentMessages.DeleteRequest request) {
+  public AttachmentMessages.Delete.Response apply(AttachmentMessages.Delete.Request request) {
     deleted = true;
     deletedDate = OffsetDateTime.now();
-    return new AttachmentMessages.DeleteResponse(
+    return new AttachmentMessages.Delete.Response(
       Arrays.asList(new DeletedEvent(this.id, request.isForce()))
     );
   }
 
-  public AttachmentMessages.CopyResponse apply(AttachmentMessages.CopyRequest request) {
+  public AttachmentMessages.Copy.Response apply(AttachmentMessages.Copy.Request request) {
     val copied = new Attachment();
     copied.id = AttachmentId.generate();
     copied.category = this.category;
     copied.multiple = this.multiple;
 
-    return new AttachmentMessages.CopyResponse(copied,
+    return new AttachmentMessages.Copy.Response(copied,
       Arrays.asList(new CopiedEvent(this.id, copied.id)));
   }
 
-  public AttachmentMessages.ClearResponse apply(AttachmentMessages.ClearRequest request) {
-    return new AttachmentMessages.ClearResponse(Collections.emptyList());
+  public AttachmentMessages.Clear.Response apply(AttachmentMessages.Clear.Request request) {
+    return new AttachmentMessages.Clear.Response(Collections.emptyList());
   }
 
 }

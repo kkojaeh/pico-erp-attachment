@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import pico.erp.attachment.AttachmentId;
 import pico.erp.attachment.AttachmentImageData;
+import pico.erp.attachment.item.AttachmentItemRequests.CopyRequest;
 import pico.erp.attachment.item.AttachmentItemRequests.CreateRequest;
 import pico.erp.attachment.item.AttachmentItemRequests.DeleteRequest;
 import pico.erp.attachment.item.AttachmentItemRequests.DirectAccessRequest;
@@ -169,5 +170,15 @@ public class AttachmentItemServiceLogic implements AttachmentItemService {
     val response = item.apply(mapper.map(request));
     attachmentItemRepository.update(item);
     eventPublisher.publishEvents(response.getEvents());
+  }
+
+  @Override
+  public AttachmentItemData copy(CopyRequest request) {
+    val item = attachmentItemRepository.findBy(request.getId())
+      .orElseThrow(AttachmentItemExceptions.NotFoundException::new);
+    val response = item.apply(mapper.map(request));
+    val copied = attachmentItemRepository.create(response.getCopied());
+    eventPublisher.publishEvents(response.getEvents());
+    return mapper.map(copied);
   }
 }

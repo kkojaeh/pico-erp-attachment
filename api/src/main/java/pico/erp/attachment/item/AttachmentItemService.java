@@ -11,20 +11,23 @@ import pico.erp.attachment.item.AttachmentItemRequests.RecoverRequest;
 
 public interface AttachmentItemService {
 
-  InputStream access(@Valid AttachmentItemRequests.DirectAccessRequest request);
+  InputStream access(@NotNull @Valid AttachmentItemRequests.DirectAccessRequest request);
 
-  URI access(@Valid AttachmentItemRequests.UriAccessRequest request);
+  URI access(@NotNull @Valid AttachmentItemRequests.UriAccessRequest request);
 
-  AttachmentItemData create(@Valid AttachmentItemRequests.CreateRequest request);
+  AttachmentItemData copy(@NotNull @Valid AttachmentItemRequests.CopyRequest request);
 
-  void delete(@Valid AttachmentItemRequests.DeleteRequest request);
+  AttachmentItemData create(@NotNull @Valid AttachmentItemRequests.CreateRequest request);
 
-  AttachmentItemData get(AttachmentItemId id);
+  void delete(@NotNull @Valid AttachmentItemRequests.DeleteRequest request);
 
-  List<AttachmentItemData> getAll(AttachmentId attachmentId);
+  AttachmentItemData get(@NotNull @Valid AttachmentItemId id);
 
-  AttachmentImageData getThumbnail(@NotNull AttachmentItemRequests.GetThumbnailRequest request);
+  List<AttachmentItemData> getAll(@NotNull @Valid AttachmentId attachmentId);
 
-  void recover(@Valid RecoverRequest request);
+  AttachmentImageData getThumbnail(
+    @NotNull @Valid AttachmentItemRequests.GetThumbnailRequest request);
+
+  void recover(@NotNull @Valid RecoverRequest request);
 
 }

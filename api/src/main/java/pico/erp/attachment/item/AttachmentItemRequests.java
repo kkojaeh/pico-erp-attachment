@@ -105,4 +105,20 @@ public interface AttachmentItemRequests {
 
   }
 
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  class CopyRequest {
+
+    @Valid
+    @NotNull
+    AttachmentItemId id;
+
+    @Valid
+    @NotNull
+    AttachmentId toAttachmentId;
+
+  }
+
 }

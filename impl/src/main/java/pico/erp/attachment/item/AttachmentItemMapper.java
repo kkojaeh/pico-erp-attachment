@@ -56,25 +56,32 @@ public abstract class AttachmentItemMapper {
     @Mapping(target = "attachmentStorageStrategy", expression = "java(attachmentStorageStrategy)"),
     @Mapping(target = "attachment", source = "attachmentId")
   })
-  public abstract AttachmentItemMessages.CreateRequest map(
+  public abstract AttachmentItemMessages.Create.Request map(
     AttachmentItemRequests.CreateRequest request);
+
+  @Mappings({
+    @Mapping(target = "attachmentStorageStrategy", expression = "java(attachmentStorageStrategy)"),
+    @Mapping(target = "toAttachment", source = "toAttachmentId")
+  })
+  public abstract AttachmentItemMessages.Copy.Request map(
+    AttachmentItemRequests.CopyRequest request);
 
   @Mappings({
     @Mapping(target = "accessor", expression = "java(auditorAware.getCurrentAuditor())")
   })
-  public abstract AttachmentItemMessages.DirectAccessRequest map(
+  public abstract AttachmentItemMessages.DirectAccess.Request map(
     AttachmentItemRequests.DirectAccessRequest request);
 
-  public abstract AttachmentItemMessages.DeleteRequest map(
+  public abstract AttachmentItemMessages.Delete.Request map(
     AttachmentItemRequests.DeleteRequest request);
 
-  public abstract AttachmentItemMessages.RecoverRequest map(
+  public abstract AttachmentItemMessages.Recover.Request map(
     AttachmentItemRequests.RecoverRequest request);
 
   @Mappings({
     @Mapping(target = "accessor", expression = "java(auditorAware.getCurrentAuditor())")
   })
-  public abstract AttachmentItemMessages.UriAccessRequest map(
+  public abstract AttachmentItemMessages.UriAccess.Request map(
     AttachmentItemRequests.UriAccessRequest request);
 
   public abstract AttachmentItemData map(AttachmentItem item);

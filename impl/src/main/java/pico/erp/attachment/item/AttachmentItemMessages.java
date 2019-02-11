@@ -16,126 +16,172 @@ import pico.erp.shared.event.Event;
 
 public interface AttachmentItemMessages {
 
-  @Data
-  class CreateRequest {
+  interface Create {
 
-    AttachmentItemId id;
+    @Data
+    class Request {
 
-    @NotNull
-    Attachment attachment;
+      AttachmentItemId id;
 
-    @NotNull
-    String name;
+      @NotNull
+      Attachment attachment;
 
-    @NotNull
-    String contentType;
+      @NotNull
+      String name;
 
-    @NotNull
-    @Min(1)
-    Long contentLength;
+      @NotNull
+      String contentType;
 
-    @NotNull
-    InputStream inputStream;
+      @NotNull
+      @Min(1)
+      Long contentLength;
 
-    @NotNull
-    AttachmentStorageStrategy attachmentStorageStrategy;
+      @NotNull
+      InputStream inputStream;
 
-  }
+      @NotNull
+      AttachmentStorageStrategy attachmentStorageStrategy;
 
-  @Value
-  class CreateResponse {
+    }
 
-    Collection<Event> events;
+    @Value
+    class Response {
 
-  }
+      Collection<Event> events;
 
-  @Data
-  class DirectAccessRequest {
-
-    @Valid
-    @NotNull
-    Auditor accessor;
+    }
 
   }
 
-  @Value
-  class DirectAccessResponse {
+  interface DirectAccess {
 
-    Collection<Event> events;
+    @Data
+    class Request {
+
+      @Valid
+      @NotNull
+      Auditor accessor;
+
+    }
+
+    @Value
+    class Response {
+
+      Collection<Event> events;
+
+    }
+  }
+
+  interface UriAccess {
+
+    @Data
+    class Request {
+
+      @Valid
+      @NotNull
+      Auditor accessor;
+    }
+
+    @Value
+    class Response {
+
+      Collection<Event> events;
+
+    }
 
   }
 
-  @Data
-  class UriAccessRequest {
+  interface Recover {
 
-    @Valid
-    @NotNull
-    Auditor accessor;
-  }
+    @Data
+    class Request {
 
-  @Value
-  class UriAccessResponse {
 
-    Collection<Event> events;
+    }
 
-  }
+    @Value
+    class Response {
 
-  @Data
-  class RecoverRequest {
+      Collection<Event> events;
 
+    }
 
   }
 
-  @Value
-  class RecoverResponse {
+  interface Delete {
 
-    Collection<Event> events;
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    class Request {
 
-  }
+      boolean force;
 
-  @Data
-  @AllArgsConstructor
-  @NoArgsConstructor
-  class DeleteRequest {
+    }
 
-    boolean force;
+    @Value
+    class Response {
 
-  }
+      Collection<Event> events;
 
-  @Value
-  class DeleteResponse {
-
-    Collection<Event> events;
+    }
 
   }
 
-  @Data
-  class ClearRequest {
+  interface Clear {
+
+    @Data
+    class Request {
 
 
-  }
+    }
 
-  @Value
-  class ClearResponse {
+    @Value
+    class Response {
 
-    Collection<Event> events;
+      Collection<Event> events;
 
-  }
-
-  @Data
-  class CopyRequest {
-
-    AttachmentStorageStrategy attachmentStorageStrategy;
+    }
 
   }
 
-  @Value
-  class CopyResponse {
+  interface Copy {
 
-    AttachmentItem copied;
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    class Request {
 
-    Collection<Event> events;
+      AttachmentStorageStrategy attachmentStorageStrategy;
+
+      @NotNull
+      Attachment toAttachment;
+
+    }
+
+    @Value
+    class Response {
+
+      AttachmentItem copied;
+
+      Collection<Event> events;
+
+    }
 
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

@@ -8,9 +8,6 @@ import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import pico.erp.attachment.AttachmentExceptions.CategoryNotFoundException;
-import pico.erp.attachment.AttachmentMessages.CopyRequest;
-import pico.erp.attachment.AttachmentMessages.CreateRequest;
-import pico.erp.attachment.AttachmentMessages.DeleteRequest;
 import pico.erp.attachment.category.AttachmentCategory;
 import pico.erp.attachment.category.AttachmentCategoryId;
 import pico.erp.attachment.category.AttachmentCategoryRepository;
@@ -55,13 +52,14 @@ public abstract class AttachmentMapper {
   @Mappings({
     @Mapping(target = "category", source = "categoryId")
   })
-  public abstract CreateRequest map(AttachmentRequests.CreateRequest request);
+  public abstract AttachmentMessages.Create.Request map(AttachmentRequests.CreateRequest request);
 
-  public abstract DeleteRequest map(AttachmentRequests.DeleteRequest request);
+  public abstract AttachmentMessages.Delete.Request map(AttachmentRequests.DeleteRequest request);
+
+  public abstract AttachmentMessages.Copy.Request map(AttachmentRequests.CopyRequest request);
 
 
 
-  public abstract CopyRequest map(AttachmentRequests.CopyRequest request);
 
 
   @Mappings({

@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
+import pico.erp.attachment.access.log.AttachmentAccessLogRequests.CreateRequest;
 import pico.erp.attachment.item.AttachmentItem;
 import pico.erp.attachment.item.AttachmentItemId;
 import pico.erp.attachment.item.AttachmentItemMapper;
@@ -34,7 +35,7 @@ public abstract class AttachmentAccessLogMapper {
     @Mapping(target = "item", source = "itemId")
   })
   public abstract AttachmentAccessLogMessages.CreateRequest map(
-    AttachmentAccessLogServiceLogic.CreateRequest request);
+    CreateRequest request);
 
   protected AttachmentItem map(AttachmentItemId itemId) {
     return itemMapper.map(itemId);
