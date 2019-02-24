@@ -1,4 +1,4 @@
-package pico.erp.attachment.impl;
+package pico.erp.attachment.storage;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,35 +6,48 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.UUID;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
-import org.springframework.beans.factory.annotation.Value;
 import pico.erp.attachment.item.AttachmentItemInfo;
-import pico.erp.attachment.storage.AttachmentStorageKey;
-import pico.erp.attachment.storage.AttachmentStorageStrategy;
 
 public class FileSystemAttachmentStorageStrategy implements AttachmentStorageStrategy {
 
-  @Setter
-  @Value("${attachment.storage.root-dir}")
-  private File rootDir;
+  private final File rootDirectory;
+
+  public FileSystemAttachmentStorageStrategy(Config config) {
+    rootDirectory = config.rootDirectory;
+  }
 
   @SneakyThrows
   @Override
   public AttachmentStorageKey copy(AttachmentStorageKey storageKey) {
-    File file = new File(rootDir, storageKey.getValue());
+    File file = new File(rootDirectory, storageKey.getValue());
     if (!file.exists()) {
       throw new RuntimeException(new FileNotFoundException());
     }
     File copied = new File(file.getParentFile(), UUID.randomUUID().toString());
     FileUtils.copyFile(file, copied);
-    return AttachmentStorageKey.from(rootDir.toURI().relativize(copied.toURI()).toString());
+    return AttachmentStorageKey.from(rootDirectory.toURI().relativize(copied.toURI()).toString());
   }
 
   @Override
   public boolean exists(AttachmentStorageKey storageKey) {
-    return new File(rootDir, storageKey.getValue()).exists();
+    return new File(rootDirectory, storageKey.getValue()).exists();
+  }
+
+  @Override
+  @SneakyThrows
+  public InputStream load(AttachmentStorageKey storageKey) {
+    File file = new File(rootDirectory, storageKey.getValue());
+    if (!file.exists()) {
+      throw new RuntimeException(new FileNotFoundException());
+    } else {
+      return new FileInputStream(file);
+    }
   }
 
   @Override
@@ -48,19 +61,8 @@ public class FileSystemAttachmentStorageStrategy implements AttachmentStorageStr
   }
 
   @Override
-  @SneakyThrows
-  public InputStream load(AttachmentStorageKey storageKey) {
-    File file = new File(rootDir, storageKey.getValue());
-    if (!file.exists()) {
-      throw new RuntimeException(new FileNotFoundException());
-    } else {
-      return new FileInputStream(file);
-    }
-  }
-
-  @Override
   public void remove(AttachmentStorageKey storageKey) {
-    File file = new File(rootDir, storageKey.getValue());
+    File file = new File(rootDirectory, storageKey.getValue());
     if (!file.exists()) {
       throw new RuntimeException(new FileNotFoundException());
     } else {
@@ -71,8 +73,18 @@ public class FileSystemAttachmentStorageStrategy implements AttachmentStorageStr
   @Override
   @SneakyThrows
   public AttachmentStorageKey save(AttachmentItemInfo info, InputStream inputStream) {
-    File destFile = new File(rootDir, info.getId().getValue().toString());
+    File destFile = new File(rootDirectory, info.getId().getValue().toString());
     FileUtils.copyInputStreamToFile(inputStream, destFile);
-    return AttachmentStorageKey.from(rootDir.toURI().relativize(destFile.toURI()).toString());
+    return AttachmentStorageKey.from(rootDirectory.toURI().relativize(destFile.toURI()).toString());
+  }
+
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @Data
+  public static class Config {
+
+    private File rootDirectory;
+
   }
 }

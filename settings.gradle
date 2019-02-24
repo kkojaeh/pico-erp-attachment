@@ -3,4 +3,5 @@ include 'api'
 include 'impl'
 include 'test'
 include 'aws-s3'
+include 'file'
 

@@ -9,4 +9,6 @@ dependencies {
 
   compile project(':impl')
 
+  compile project(':file')
+
 }

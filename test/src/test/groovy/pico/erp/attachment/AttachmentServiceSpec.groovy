@@ -1,8 +1,8 @@
 package pico.erp.attachment
 
-
 import org.apache.commons.io.IOUtils
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -14,11 +14,11 @@ import pico.erp.attachment.access.log.AttachmentAccessLogQuery
 import pico.erp.attachment.access.log.AttachmentAccessLogView
 import pico.erp.attachment.category.AttachmentCategory
 import pico.erp.attachment.category.AttachmentCategoryId
-import pico.erp.attachment.impl.FileSystemAttachmentStorageStrategy
 import pico.erp.attachment.item.AttachmentItemId
 import pico.erp.attachment.item.AttachmentItemRequests
 import pico.erp.attachment.item.AttachmentItemService
 import pico.erp.attachment.storage.AttachmentStorageStrategy
+import pico.erp.attachment.storage.FileSystemAttachmentStorageStrategy
 import pico.erp.shared.IntegrationConfiguration
 import pico.erp.shared.Public
 import spock.lang.Specification
@@ -41,10 +41,16 @@ class AttachmentServiceSpec extends Specification {
     )
   }
 
+  @Value('${attachment.storage.root-dir}')
+  private File rootDir
+
   @Public
   @Bean
   AttachmentStorageStrategy testFileSystemAttachmentItemStorage() {
-    return new FileSystemAttachmentStorageStrategy()
+    def config = FileSystemAttachmentStorageStrategy.Config.builder()
+      .rootDirectory(rootDir)
+      .build()
+    return new FileSystemAttachmentStorageStrategy(config)
   }
 
   @Autowired

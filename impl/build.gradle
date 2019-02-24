@@ -12,8 +12,6 @@ dependencies {
 
   compile("com.github.kkojaeh.pico-erp-shared:impl:${sharedVersion}")
 
-  compile('commons-io:commons-io')
-
   compile('net.coobird:thumbnailator:0.4.8')
 
 }
