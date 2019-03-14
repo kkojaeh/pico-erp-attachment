@@ -119,8 +119,7 @@ class AttachmentServiceSpec extends Specification {
     def items = attachmentItemService.getAll(singularId)
 
     then:
-    items.size() == 2
-    items.stream().filter({ item -> item.deleted }).count() == 1
+    items.size() == 1
   }
 
 
