@@ -7,13 +7,14 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import kkojaeh.spring.boot.component.Give;
+import kkojaeh.spring.boot.component.Take;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.val;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,11 +29,10 @@ import pico.erp.attachment.item.AttachmentItemRequests.GetThumbnailRequest;
 import pico.erp.attachment.item.AttachmentItemRequests.RecoverRequest;
 import pico.erp.attachment.item.AttachmentItemRequests.UriAccessRequest;
 import pico.erp.attachment.storage.AttachmentStorageStrategy;
-import pico.erp.shared.Public;
 import pico.erp.shared.event.EventPublisher;
 
 @Service
-@Public
+@Give
 @Transactional
 @Validated
 @SuppressWarnings("Duplicates")
@@ -48,8 +48,7 @@ public class AttachmentItemServiceLogic implements AttachmentItemService {
   @Autowired
   private EventPublisher eventPublisher;
 
-  @Lazy
-  @Autowired
+  @Take(required = false)
   private AttachmentStorageStrategy attachmentStorageStrategy;
 
   @Setter

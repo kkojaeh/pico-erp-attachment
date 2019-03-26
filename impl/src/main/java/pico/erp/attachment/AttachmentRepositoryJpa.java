@@ -39,12 +39,12 @@ public class AttachmentRepositoryJpa implements AttachmentRepository {
 
   @Override
   public void deleteBy(AttachmentId id) {
-    repository.delete(id);
+    repository.deleteById(id);
   }
 
   @Override
   public boolean exists(AttachmentId id) {
-    return repository.exists(id);
+    return repository.existsById(id);
   }
 
   @Override
@@ -55,13 +55,13 @@ public class AttachmentRepositoryJpa implements AttachmentRepository {
 
   @Override
   public Optional<Attachment> findBy(AttachmentId id) {
-    return Optional.ofNullable(repository.findOne(id))
+    return repository.findById(id)
       .map(mapper::domain);
   }
 
   @Override
   public void update(Attachment attachment) {
-    val entity = repository.findOne(attachment.getId());
+    val entity = repository.findById(attachment.getId()).get();
     mapper.pass(mapper.entity(attachment), entity);
     repository.save(entity);
   }

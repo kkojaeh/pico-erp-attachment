@@ -1,7 +1,6 @@
 package pico.erp.attachment.item;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.event.EventListener;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
@@ -12,7 +11,6 @@ public class AttachmentItemEventListener {
 
   private static final String LISTENER_NAME = "listener.attachment-item-event-listener";
 
-  @Lazy
   @Autowired
   AttachmentItemService attachmentItemService;
 

@@ -1,7 +1,6 @@
-banner:
-  location: classpath:attachment/banner.txt
-
 spring:
+  banner:
+    location: classpath:attachment/banner.txt
   profiles:
     include:
       - icons
@@ -10,7 +9,6 @@ spring:
   session:
     store-type: NONE
   messages:
-    cache-seconds: 60
     basename: attachment-messages
     encoding: UTF-8
   datasource:
@@ -20,6 +18,8 @@ spring:
     password: ${ATTACHMENT_DATASOURCE_PASSWORD:${DATASOURCE_PASSWORD:null}}
     hikari:
       maximum-pool-size: 4
+  flyway:
+    enabled: false
   jpa:
     database: HSQL
     hibernate:
@@ -85,9 +85,6 @@ logging:
   level:
     org:
       springframework: INFO
-
-flyway:
-  enabled: false
 
 attachment:
   no-thumbnail:

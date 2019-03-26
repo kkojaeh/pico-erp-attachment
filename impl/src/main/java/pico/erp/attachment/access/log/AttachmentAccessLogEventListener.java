@@ -1,7 +1,6 @@
 package pico.erp.attachment.access.log;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.event.EventListener;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
@@ -13,7 +12,6 @@ public class AttachmentAccessLogEventListener {
 
   private static final String LISTENER_NAME = "listener.attachment-access-log-event-listener";
 
-  @Lazy
   @Autowired
   AttachmentAccessLogService attachmentAccessLogService;
 

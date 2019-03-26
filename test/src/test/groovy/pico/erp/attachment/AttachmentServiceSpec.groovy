@@ -1,10 +1,12 @@
 package pico.erp.attachment
 
+import kkojaeh.spring.boot.component.SpringBootTestComponent
 import org.apache.commons.io.IOUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.domain.PageRequest
 import org.springframework.test.annotation.Rollback
@@ -19,20 +21,20 @@ import pico.erp.attachment.item.AttachmentItemRequests
 import pico.erp.attachment.item.AttachmentItemService
 import pico.erp.attachment.storage.AttachmentStorageStrategy
 import pico.erp.attachment.storage.FileSystemAttachmentStorageStrategy
-import pico.erp.shared.IntegrationConfiguration
-import pico.erp.shared.Public
+import pico.erp.shared.TestParentApplication
 import spock.lang.Specification
 
 import java.time.OffsetDateTime
 
-@SpringBootTest(classes = [IntegrationConfiguration])
+@SpringBootTest(classes = [AttachmentApplication])
+@SpringBootTestComponent(parent = TestParentApplication, siblings = [])
+@ComponentScan(useDefaultFilters = false)
 @Transactional
 @Rollback
 @ActiveProfiles("test")
 @Configuration
 class AttachmentServiceSpec extends Specification {
 
-  @Public
   @Bean
   AttachmentCategory testAttachmentCategory() {
     return new AttachmentCategory.AttachmentCategoryImpl(
@@ -44,7 +46,6 @@ class AttachmentServiceSpec extends Specification {
   @Value('${attachment.storage.root-dir}')
   private File rootDir
 
-  @Public
   @Bean
   AttachmentStorageStrategy testFileSystemAttachmentItemStorage() {
     def config = FileSystemAttachmentStorageStrategy.Config.builder()
