@@ -2,7 +2,7 @@ package pico.erp.attachment;
 
 
 import java.io.Serializable;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -60,7 +60,7 @@ public class AttachmentEntity implements Serializable {
   boolean deleted;
 
   @Column
-  OffsetDateTime deletedDate;
+  LocalDateTime deletedDate;
 
   @Embedded
   @AttributeOverrides({
@@ -72,7 +72,7 @@ public class AttachmentEntity implements Serializable {
 
   @CreatedDate
   @Column(updatable = false)
-  OffsetDateTime createdDate;
+  LocalDateTime createdDate;
 
   @Embedded
   @AttributeOverrides({
@@ -83,6 +83,6 @@ public class AttachmentEntity implements Serializable {
   Auditor lastModifiedBy;
 
   @LastModifiedDate
-  OffsetDateTime lastModifiedDate;
+  LocalDateTime lastModifiedDate;
 
 }

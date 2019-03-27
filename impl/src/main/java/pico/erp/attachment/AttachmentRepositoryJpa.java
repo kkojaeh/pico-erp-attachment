@@ -1,6 +1,6 @@
 package pico.erp.attachment;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.stream.Stream;
 import lombok.val;
@@ -16,7 +16,7 @@ interface AttachmentEntityRepository extends CrudRepository<AttachmentEntity, At
 
   @Query("SELECT a FROM Attachment a WHERE a.deleted = true AND a.deletedDate < :fixedDate")
   Stream<AttachmentEntity> findAllDeletedBeforeThan(
-    @Param("fixedDate") OffsetDateTime fixedDate);
+    @Param("fixedDate") LocalDateTime fixedDate);
 
 }
 
@@ -48,7 +48,7 @@ public class AttachmentRepositoryJpa implements AttachmentRepository {
   }
 
   @Override
-  public Stream<Attachment> findAllDeletedBeforeThan(OffsetDateTime fixedDate) {
+  public Stream<Attachment> findAllDeletedBeforeThan(LocalDateTime fixedDate) {
     return repository.findAllDeletedBeforeThan(fixedDate)
       .map(mapper::domain);
   }

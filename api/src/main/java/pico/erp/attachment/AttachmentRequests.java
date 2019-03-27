@@ -1,6 +1,6 @@
 package pico.erp.attachment;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -23,7 +23,7 @@ public interface AttachmentRequests {
      */
     @NotNull
     @Past
-    OffsetDateTime fixedDate;
+    LocalDateTime fixedDate;
 
   }
 

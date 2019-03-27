@@ -24,7 +24,7 @@ import pico.erp.attachment.storage.FileSystemAttachmentStorageStrategy
 import pico.erp.shared.TestParentApplication
 import spock.lang.Specification
 
-import java.time.OffsetDateTime
+import java.time.LocalDateTime
 
 @SpringBootTest(classes = [AttachmentApplication])
 @SpringBootTestComponent(parent = TestParentApplication, siblings = [])
@@ -233,7 +233,7 @@ class AttachmentServiceSpec extends Specification {
 
     attachmentService.clear(
       new AttachmentRequests.ClearRequest(
-        fixedDate: OffsetDateTime.now()
+        fixedDate: LocalDateTime.now()
       )
     )
 
