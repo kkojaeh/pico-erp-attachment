@@ -1,4 +1,6 @@
 spring:
+  jmx:
+    default-domain: attachment
   banner:
     location: classpath:attachment/banner.txt
   profiles:
