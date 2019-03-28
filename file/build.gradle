@@ -16,6 +16,6 @@ dependencies {
 
   compile project(':api')
 
-  compile('commons-io:commons-io:2.6')
+  compile("commons-io:commons-io:${commonsIoVersion}")
 
 }
