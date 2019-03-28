@@ -12,8 +12,6 @@ apply from: 'https://rawgit.com/kkojaeh/pico-erp-gradle/spring-boot-2/api.gradle
 
 dependencies {
 
-  compile("org.projectlombok:lombok:${lombokVersion}")
-
   compile project(':api')
 
   compile("commons-io:commons-io:${commonsIoVersion}")
