@@ -2,8 +2,8 @@ package pico.erp.attachment;
 
 import java.util.LinkedList;
 import java.util.stream.Collectors;
-import kkojaeh.spring.boot.component.Give;
-import kkojaeh.spring.boot.component.Take;
+import kkojaeh.spring.boot.component.ComponentAutowired;
+import kkojaeh.spring.boot.component.ComponentBean;
 import lombok.Setter;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import pico.erp.shared.event.Event;
 import pico.erp.shared.event.EventPublisher;
 
 @Service
-@Give
+@ComponentBean
 @Transactional
 @Validated
 public class AttachmentServiceLogic implements AttachmentService {
@@ -36,7 +36,7 @@ public class AttachmentServiceLogic implements AttachmentService {
   @Autowired
   private AttachmentRepository attachmentRepository;
 
-  @Take(required = false)
+  @ComponentAutowired(required = false)
   private AttachmentStorageStrategy attachmentStorageStrategy;
 
   @Autowired

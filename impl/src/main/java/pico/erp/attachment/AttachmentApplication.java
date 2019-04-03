@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import pico.erp.ComponentDefinition;
 import pico.erp.shared.SharedConfiguration;
 
 @Slf4j
@@ -29,12 +30,17 @@ import pico.erp.shared.SharedConfiguration;
 @Import(value = {
   SharedConfiguration.class
 })
-public class AttachmentApplication {
+public class AttachmentApplication implements ComponentDefinition {
 
   public static void main(String[] args) {
     new SpringBootComponentBuilder()
       .component(AttachmentApplication.class)
       .run(args);
+  }
+
+  @Override
+  public Class<?> getComponentClass() {
+    return AttachmentApplication.class;
   }
 
   @Bean

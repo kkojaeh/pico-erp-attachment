@@ -7,8 +7,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import kkojaeh.spring.boot.component.Give;
-import kkojaeh.spring.boot.component.Take;
+import kkojaeh.spring.boot.component.ComponentAutowired;
+import kkojaeh.spring.boot.component.ComponentBean;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.val;
@@ -32,7 +32,7 @@ import pico.erp.attachment.storage.AttachmentStorageStrategy;
 import pico.erp.shared.event.EventPublisher;
 
 @Service
-@Give
+@ComponentBean
 @Transactional
 @Validated
 @SuppressWarnings("Duplicates")
@@ -48,7 +48,7 @@ public class AttachmentItemServiceLogic implements AttachmentItemService {
   @Autowired
   private EventPublisher eventPublisher;
 
-  @Take(required = false)
+  @ComponentAutowired(required = false)
   private AttachmentStorageStrategy attachmentStorageStrategy;
 
   @Setter

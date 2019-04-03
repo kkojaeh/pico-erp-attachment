@@ -3,13 +3,13 @@ package pico.erp.attachment.category;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
-import kkojaeh.spring.boot.component.Take;
+import kkojaeh.spring.boot.component.ComponentAutowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class AttachmentCategoryRepositoryImpl implements AttachmentCategoryRepository {
 
-  @Take(required = false)
+  @ComponentAutowired(required = false)
   List<AttachmentCategory> attachmentCategories;
 
   @Override

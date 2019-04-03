@@ -1,6 +1,6 @@
 package pico.erp.attachment.access.log;
 
-import kkojaeh.spring.boot.component.Give;
+import kkojaeh.spring.boot.component.ComponentBean;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import pico.erp.shared.event.EventPublisher;
 
 @Service
-@Give
+@ComponentBean
 @Transactional
 @Validated
 public class AttachmentAccessLogServiceLogic implements AttachmentAccessLogService {
