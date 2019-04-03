@@ -1,7 +1,7 @@
 package pico.erp.attachment.item;
 
 import java.io.Serializable;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import javax.persistence.Id;
@@ -45,11 +45,11 @@ public class AttachmentItem implements Serializable, AttachmentItemInfo {
 
   Auditor createdBy;
 
-  OffsetDateTime createdDate;
+  LocalDateTime createdDate;
 
-  OffsetDateTime deletedDate;
+  LocalDateTime deletedDate;
 
-  OffsetDateTime lastAccessedDate;
+  LocalDateTime lastAccessedDate;
 
   public AttachmentItem() {
     this.deleted = false;
@@ -60,7 +60,7 @@ public class AttachmentItem implements Serializable, AttachmentItemInfo {
     if (attachment.isDeleted() || deleted) {
       throw new AttachmentExceptions.CannotAccessException();
     }
-    lastAccessedDate = OffsetDateTime.now();
+    lastAccessedDate = LocalDateTime.now();
     return new AttachmentItemMessages.DirectAccess.Response(
       Arrays.asList(new AttachmentItemEvents.DirectAccessEvent(this.id, request.getAccessor()))
     );
@@ -71,7 +71,7 @@ public class AttachmentItem implements Serializable, AttachmentItemInfo {
     if (attachment.isDeleted() || deleted) {
       throw new AttachmentExceptions.CannotAccessException();
     }
-    lastAccessedDate = OffsetDateTime.now();
+    lastAccessedDate = LocalDateTime.now();
     return new AttachmentItemMessages.UriAccess.Response(
       Arrays.asList(new AttachmentItemEvents.UriAccessEvent(this.id, request.getAccessor()))
     );
@@ -96,7 +96,7 @@ public class AttachmentItem implements Serializable, AttachmentItemInfo {
       throw new AttachmentItemExceptions.CannotDeleteException();
     }
     deleted = true;
-    deletedDate = OffsetDateTime.now();
+    deletedDate = LocalDateTime.now();
     return new AttachmentItemMessages.Delete.Response(
       Arrays.asList(new AttachmentItemEvents.DeletedEvent(this.id, request.isForce()))
     );

@@ -5,58 +5,42 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import java.util.Properties;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import lombok.SneakyThrows;
+import kkojaeh.spring.boot.component.SpringBootComponent;
+import kkojaeh.spring.boot.component.SpringBootComponentBuilder;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
-import pico.erp.shared.ApplicationId;
-import pico.erp.shared.ApplicationStarter;
-import pico.erp.shared.SpringBootConfigs;
-import pico.erp.shared.impl.ApplicationImpl;
-import pico.erp.user.UserApi;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Import;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import pico.erp.ComponentDefinition;
+import pico.erp.shared.SharedConfiguration;
 
 @Slf4j
-@SpringBootConfigs
-public class AttachmentApplication implements ApplicationStarter {
+@SpringBootComponent("attachment")
+@EntityScan
+@EnableAspectJAutoProxy
+@EnableTransactionManagement
+@EnableJpaRepositories
+@EnableJpaAuditing(auditorAwareRef = "auditorAware", dateTimeProviderRef = "dateTimeProvider")
+@SpringBootApplication
+@Import(value = {
+  SharedConfiguration.class
+})
+public class AttachmentApplication implements ComponentDefinition {
 
-  public static final String CONFIG_NAME = "attachment/application";
-
-  public static final Properties DEFAULT_PROPERTIES = new Properties();
-
-  static {
-    DEFAULT_PROPERTIES.put("spring.config.name", CONFIG_NAME);
-  }
-
-  public static SpringApplication application() {
-    return new SpringApplicationBuilder(AttachmentApplication.class)
-      .properties(DEFAULT_PROPERTIES)
-      .web(false)
-      .build();
-  }
-
-  @SneakyThrows
   public static void main(String[] args) {
-    application().run(args);
+    new SpringBootComponentBuilder()
+      .component(AttachmentApplication.class)
+      .run(args);
   }
 
   @Override
-  public Set<ApplicationId> getDependencies() {
-    return Stream.of(UserApi.ID).collect(Collectors.toSet());
-  }
-
-  @Override
-  public ApplicationId getId() {
-    return AttachmentApi.ID;
-  }
-
-  @Override
-  public boolean isWeb() {
-    return false;
+  public Class<?> getComponentClass() {
+    return AttachmentApplication.class;
   }
 
   @Bean
@@ -68,11 +52,6 @@ public class AttachmentApplication implements ApplicationStarter {
     mapper.registerModule(module);
     mapper.registerModule(new JavaTimeModule());
     return mapper;
-  }
-
-  @Override
-  public pico.erp.shared.Application start(String... args) {
-    return new ApplicationImpl(application().run(args));
   }
 
 }

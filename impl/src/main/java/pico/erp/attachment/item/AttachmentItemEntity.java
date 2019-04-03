@@ -1,6 +1,6 @@
 package pico.erp.attachment.item;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -67,10 +67,10 @@ public class AttachmentItemEntity {
   boolean deleted;
 
   @Column
-  OffsetDateTime deletedDate;
+  LocalDateTime deletedDate;
 
   @Column
-  OffsetDateTime lastAccessedDate;
+  LocalDateTime lastAccessedDate;
 
   @Embedded
   @AttributeOverrides({
@@ -82,6 +82,6 @@ public class AttachmentItemEntity {
 
   @CreatedDate
   @Column(updatable = false)
-  OffsetDateTime createdDate;
+  LocalDateTime createdDate;
 
 }

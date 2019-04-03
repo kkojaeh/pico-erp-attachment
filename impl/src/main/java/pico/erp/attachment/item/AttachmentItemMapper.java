@@ -67,7 +67,7 @@ public abstract class AttachmentItemMapper {
     AttachmentItemRequests.CopyRequest request);
 
   @Mappings({
-    @Mapping(target = "accessor", expression = "java(auditorAware.getCurrentAuditor())")
+    @Mapping(target = "accessor", expression = "java(auditorAware.getCurrentAuditor().get())")
   })
   public abstract AttachmentItemMessages.DirectAccess.Request map(
     AttachmentItemRequests.DirectAccessRequest request);
@@ -79,7 +79,7 @@ public abstract class AttachmentItemMapper {
     AttachmentItemRequests.RecoverRequest request);
 
   @Mappings({
-    @Mapping(target = "accessor", expression = "java(auditorAware.getCurrentAuditor())")
+    @Mapping(target = "accessor", expression = "java(auditorAware.getCurrentAuditor().get())")
   })
   public abstract AttachmentItemMessages.UriAccess.Request map(
     AttachmentItemRequests.UriAccessRequest request);

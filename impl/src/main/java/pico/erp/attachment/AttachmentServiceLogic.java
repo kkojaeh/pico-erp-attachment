@@ -2,11 +2,12 @@ package pico.erp.attachment;
 
 import java.util.LinkedList;
 import java.util.stream.Collectors;
+import kkojaeh.spring.boot.component.ComponentAutowired;
+import kkojaeh.spring.boot.component.ComponentBean;
 import lombok.Setter;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,12 +21,11 @@ import pico.erp.attachment.item.AttachmentItem;
 import pico.erp.attachment.item.AttachmentItemMessages;
 import pico.erp.attachment.item.AttachmentItemRepository;
 import pico.erp.attachment.storage.AttachmentStorageStrategy;
-import pico.erp.shared.Public;
 import pico.erp.shared.event.Event;
 import pico.erp.shared.event.EventPublisher;
 
 @Service
-@Public
+@ComponentBean
 @Transactional
 @Validated
 public class AttachmentServiceLogic implements AttachmentService {
@@ -36,8 +36,7 @@ public class AttachmentServiceLogic implements AttachmentService {
   @Autowired
   private AttachmentRepository attachmentRepository;
 
-  @Lazy
-  @Autowired
+  @ComponentAutowired(required = false)
   private AttachmentStorageStrategy attachmentStorageStrategy;
 
   @Autowired
