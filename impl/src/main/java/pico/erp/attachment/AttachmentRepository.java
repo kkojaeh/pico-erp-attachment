@@ -1,6 +1,6 @@
 package pico.erp.attachment;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
@@ -13,7 +13,7 @@ public interface AttachmentRepository {
 
   boolean exists(@NotNull AttachmentId id);
 
-  Stream<Attachment> findAllDeletedBeforeThan(@NotNull LocalDateTime fixedDate);
+  Stream<Attachment> findAllDeletedBeforeThan(@NotNull OffsetDateTime fixedDate);
 
   Optional<Attachment> findBy(@NotNull AttachmentId id);
 

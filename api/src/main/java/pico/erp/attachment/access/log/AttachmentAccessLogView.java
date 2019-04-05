@@ -1,6 +1,6 @@
 package pico.erp.attachment.access.log;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,7 +28,7 @@ public class AttachmentAccessLogView {
 
   Auditor accessor;
 
-  LocalDateTime accessedDate;
+  OffsetDateTime accessedDate;
 
   @Data
   @NoArgsConstructor

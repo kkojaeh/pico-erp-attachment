@@ -10,7 +10,6 @@ import com.amazonaws.services.s3.model.S3Object;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URLEncoder;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -50,13 +49,13 @@ public class AwsS3AttachmentStorageStrategy implements AttachmentStorageStrategy
 
   private AttachmentStorageKey createStorageKey(AttachmentStorageKey storageKey) {
     String key = String
-      .format("%s/%s", formatter.format(LocalDateTime.now()), UUID.randomUUID());
+      .format("%s/%s", formatter.format(OffsetDateTime.now()), UUID.randomUUID());
     return AttachmentStorageKey.from(key);
   }
 
   private AttachmentStorageKey createStorageKey(AttachmentItemInfo info) {
     String key = String
-      .format("%s/%s", formatter.format(LocalDateTime.now()), info.getId().getValue());
+      .format("%s/%s", formatter.format(OffsetDateTime.now()), info.getId().getValue());
     return AttachmentStorageKey.from(key);
   }
 

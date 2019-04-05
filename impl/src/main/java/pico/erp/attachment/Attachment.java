@@ -1,7 +1,7 @@
 package pico.erp.attachment;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import javax.persistence.Id;
@@ -40,11 +40,11 @@ public class Attachment implements Serializable {
 
   boolean deleted;
 
-  LocalDateTime deletedDate;
+  OffsetDateTime deletedDate;
 
   Auditor createdBy;
 
-  LocalDateTime createdDate;
+  OffsetDateTime createdDate;
 
   public Attachment() {
     deleted = false;
@@ -60,7 +60,7 @@ public class Attachment implements Serializable {
 
   public AttachmentMessages.Delete.Response apply(AttachmentMessages.Delete.Request request) {
     deleted = true;
-    deletedDate = LocalDateTime.now();
+    deletedDate = OffsetDateTime.now();
     return new AttachmentMessages.Delete.Response(
       Arrays.asList(new DeletedEvent(this.id, request.isForce()))
     );

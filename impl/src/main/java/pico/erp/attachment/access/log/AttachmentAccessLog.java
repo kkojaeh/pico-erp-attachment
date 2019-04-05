@@ -1,6 +1,6 @@
 package pico.erp.attachment.access.log;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Collections;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -41,7 +41,7 @@ public class AttachmentAccessLog {
 
   Auditor accessor;
 
-  LocalDateTime accessedDate;
+  OffsetDateTime accessedDate;
 
   public AttachmentAccessLogMessages.CreateResponse apply(
     AttachmentAccessLogMessages.CreateRequest request) {
@@ -53,7 +53,7 @@ public class AttachmentAccessLog {
     this.contentLength = item.getContentLength();
     this.accessType = request.getAccessType();
     this.accessor = request.getAccessor();
-    this.accessedDate = LocalDateTime.now();
+    this.accessedDate = OffsetDateTime.now();
     return new AttachmentAccessLogMessages.CreateResponse(Collections.emptyList());
   }
 

@@ -1,6 +1,6 @@
 package pico.erp.attachment.item;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import lombok.Data;
 import pico.erp.shared.data.Auditor;
 
@@ -17,9 +17,9 @@ public class AttachmentItemData {
 
   Auditor createdBy;
 
-  LocalDateTime createdDate;
+  OffsetDateTime createdDate;
 
-  LocalDateTime deletedDate;
+  OffsetDateTime deletedDate;
 
   boolean deleted;
 

@@ -1,6 +1,6 @@
 package pico.erp.attachment.access.log;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -78,6 +78,6 @@ public class AttachmentAccessLogEntity {
 
 
   @Column(updatable = false)
-  LocalDateTime accessedDate;
+  OffsetDateTime accessedDate;
 
 }
